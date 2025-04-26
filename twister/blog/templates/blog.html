@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twister</title>
+</head>
+<body>
+    <div class="shell">
+        <div class="border">
+            <div if="navigation">
+                <ul>
+                    <li><a href="/" class="active">Главная</a></li>
+                    <li><a href="/admin">Админ Панель</a></li>
+                
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div id="content" class="left">
+                <div class="projects">
+                    <h3>Последние записи</h3>
+                    {% for post in post_list %}
+                    <div class="item">
+                        <div class="image left">
+                            <a href="{{ post.id }}">
+                                <img src="{{ post.img.url }}" alt="{{ post.title }}">
+                            </a>
+                        </div>
+                        <div class="text left">
+                            <h4><a href="{{post.id}}">{{ post.title }}</a></h4>
+                            <p class="post-meta">
+                                <span class="author">Автор: {{ post.author }}</span>
+                                <span class="likes">❤ {{ post.likes_set.all.count }}</span>
+                                <span class="comments">💬 {{ post.comments_set.all.count}}</span>
+                            </p>
+                        </div>
+                        <div class="cl">&nbsp;</div>
+                    </div>
+                    {% empty %}
+                    <div class="no-posts">
+                        <p>Нет достопных записей.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="cl">&nbsp;</div>
+        </div>
+    </div>
+    <div id="footer">
+        <p class="copy right">Copyright &copy; {% now "Y" %} Twister</p>
+    </div>
+</body>
+</html>
